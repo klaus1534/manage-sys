@@ -1,0 +1,17 @@
+云端：http://www.eflycloud.com/
+username :470539811@qq.com   
+密码:6190610
+
+服务器：
+ip：112.73.90.175
+username:root  
+passwd:ths1234560
+
+登录连接数据库
+112.73.90.175  端口3306
+root  J26SqSozzCvsJRe9
+
+mysql -h112.73.90.175 -P3306 -uroot -pJ26SqSozzCvsJRe9
+mysqldump  -h112.73.90.175 -P3306 -uroot -pJ26SqSozzCvsJRe9 managesystem > managesystem.sql
+
+

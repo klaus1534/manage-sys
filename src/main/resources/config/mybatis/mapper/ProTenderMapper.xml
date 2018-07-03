@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huanxink.msys.managesys.mapper.ProTenderMapper">
+    <resultMap id="BaseResultMap" type="com.huanxink.msys.managesys.model.ProTender">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="project_enter_id" jdbcType="INTEGER" property="projectEnterId"/>
+        <result column="project_no" jdbcType="VARCHAR" property="projectNo"/>
+        <result column="project_tender_no" jdbcType="VARCHAR" property="projectTenderNo"/>
+        <result column="project_name" jdbcType="VARCHAR" property="projectName"/>
+        <result column="project_type" jdbcType="VARCHAR" property="projectType"/>
+        <result column="tender_shoot_date" jdbcType="TIMESTAMP" property="tenderShootDate"/>
+        <result column="tender_amount" jdbcType="DECIMAL" property="tenderAmount"/>
+        <result column="build_scale" jdbcType="VARCHAR" property="buildScale"/>
+        <result column="tender_build_area" jdbcType="DECIMAL" property="tenderBuildArea"/>
+        <result column="tender_enter_id" jdbcType="INTEGER" property="tenderEnterId"/>
+        <result column="tender_man" jdbcType="VARCHAR" property="tenderMan"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="creater" jdbcType="VARCHAR" property="creater"/>
+        <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime"/>
+        <result column="updater" jdbcType="TIMESTAMP" property="updater"/>
+    </resultMap>
+    <resultMap id="BaseJoinResultMap" type="com.huanxink.msys.managesys.model.dto.ProTenderDo" extends="BaseResultMap">
+        <result column="project_enter_name" jdbcType="VARCHAR" property="proEnterpriseName"/>
+        <result column="tender_enter_name" jdbcType="VARCHAR" property="tenderEnterpriseName"/>
+    </resultMap>
+    <resultMap id="BaseQueryResultMap" type="com.huanxink.msys.managesys.model.dto.ProTenderDo"
+               extends="BaseResultMap">
+        <result column="project_enter_name" jdbcType="VARCHAR" property="proEnterpriseName"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, project_enter_id, project_no, project_tender_no, project_name, project_type,
+    tender_shoot_date, tender_amount, build_scale, tender_build_area, tender_enter_id,
+    tender_man, created_time, creater, updated_time, updater
+  </sql>
+    <sql id="Base_Join_Column_List">
+    a.id, a.project_enter_id, a.project_no, a.project_tender_no, a.project_name, a.project_type,
+    a.tender_shoot_date, a.tender_amount, a.build_scale, a.tender_build_area, a.tender_enter_id,
+    a.tender_man, a.created_time, a.creater, a.updated_time, a.updater, b.enterprise_name as project_enter_name,
+    c.enterprise_name as tender_enter_name
+  </sql>
+
+    <sql id="Base_Query_Column_List">
+    a.id, a.project_enter_id, a.project_no, a.project_tender_no, a.project_name, a.project_type,
+    a.tender_shoot_date, a.tender_amount, a.build_scale, a.tender_build_area, a.tender_enter_id,
+    a.tender_man, a.created_time, a.creater, a.updated_time, a.updater, b.enterprise_name as project_enter_name
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pro_tender
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="seacherPageList" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pro_tender
+        where 1=1
+        <if test="id!=null">
+            and id = #{id,jdbcType=INTEGER}
+        </if>
+    </select>
+    <select id="seacherJoinPageList" parameterType="java.util.Map" resultMap="BaseJoinResultMap">
+        select
+        <include refid="Base_Join_Column_List"/>
+        from pro_tender a left join enterprise b on a.project_enter_id=b.id
+        left join enterprise c on a.tender_enter_id=c.id
+        where 1=1
+        <if test="id!=null">
+            and a.id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="companyName !=null and companyName !=''">
+            and b.enterprise_name like concat('%',#{companyName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="proName !=null and proName !=''">
+            and a.project_name like concat('%',#{proName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="tenderType !=null and tenderType !=''">
+            and a.project_type like concat('%',#{tenderType,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="tenderProAmtStart !=null and tenderProAmtStart !=''">
+            and a.tender_amount &gt;=#{tenderProAmtStart, jdbcType=VARCHAR}
+        </if>
+        <if test="tenderProAmtEnd !=null and tenderProAmtEnd !=''">
+            and a.tender_amount &lt;=#{tenderProAmtEnd, jdbcType=VARCHAR}
+        </if>
+        <if test="tenderShootTimeStart !=null and tenderShootTimeStart !=''">
+            and a.tender_shoot_date &gt;=concat(#{tenderShootTimeStart, jdbcType=VARCHAR},' 00:00:00')
+        </if>
+        <if test="tenderShootTimeEnd !=null and tenderShootTimeEnd !=''">
+            and a.tender_shoot_date &lt;= concat(#{tenderShootTimeEnd, jdbcType=VARCHAR}, ' 23:59:59')
+        </if>
+    </select>
+    <select id="queryPageList" parameterType="java.util.Map" resultMap="BaseQueryResultMap">
+        select
+        <include refid="Base_Query_Column_List"/>
+        from pro_tender a left join enterprise b on a.project_enter_id=b.id
+        where 1=1
+        <if test="id!=null">
+            and a.id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="enterpriseOption !=null and enterpriseOption != ''">
+            and b.enterprise_name like concat('%', #{enterpriseOption, jdbcType=VARCHAR}, '%')
+        </if>
+        <if test="projectOption !=null and projectOption != ''">
+            and (a.project_name like concat('%', #{projectOption, jdbcType=VARCHAR}, '%')
+            or a.build_scale like concat('%', #{projectOption, jdbcType=VARCHAR}, '%')
+            or a.tender_amount= #{projectOption, jdbcType=VARCHAR})
+        </if>
+        <if test="shootTimeStart !=null and shootTimeStart !=''">
+            and a.tender_shoot_date &gt;= concat(#{shootTimeStart, jdbcType=VARCHAR}, ' 00:00:00')
+        </if>
+        <if test="shootTimeEnd !=null and shootTimeEnd !=''">
+            and a.tender_shoot_date &lt;= concat(#{shootTimeEnd, jdbcType=VARCHAR}, ' 23:59:59')
+        </if>
+        <if test="tenderAmtStart !=null and tenderAmtStart !=''">
+            and a.tender_amount &gt;= #{tenderAmtStart, jdbcType=VARCHAR}
+        </if>
+        <if test="tenderAmtEnd !=null and tenderAmtEnd !=''">
+            and a.tender_amount &lt;= #{tenderAmtEnd, jdbcType=VARCHAR}
+        </if>
+        <if test="projectScaleStart !=null and projectScaleStart !=''">
+            and a.tender_build_area &gt;= #{projectScaleStart, jdbcType=VARCHAR}
+        </if>
+        <if test="projectScaleEnd !=null and projectScaleEnd !=''">
+            and a.tender_build_area &lt;= #{projectScaleEnd, jdbcType=VARCHAR}
+        </if>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pro_tender
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.huanxink.msys.managesys.model.ProTender">
+    insert into pro_tender (id, project_enter_id, project_no, 
+      project_tender_no, project_name, project_type, 
+      tender_shoot_date, tender_amount, build_scale, 
+      tender_build_area, tender_enter_id, tender_man, 
+      created_time, creater, updated_time, 
+      updater)
+    values (#{id,jdbcType=INTEGER}, #{projectEnterId,jdbcType=INTEGER}, #{projectNo,jdbcType=VARCHAR}, 
+      #{projectTenderNo,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, #{projectType,jdbcType=VARCHAR}, 
+      #{tenderShootDate,jdbcType=TIMESTAMP}, #{tenderAmount,jdbcType=DECIMAL}, #{buildScale,jdbcType=VARCHAR}, 
+      #{tenderBuildArea,jdbcType=DECIMAL}, #{tenderEnterId,jdbcType=INTEGER}, #{tenderMan,jdbcType=VARCHAR}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.huanxink.msys.managesys.model.ProTender">
+        insert into pro_tender
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="projectEnterId != null">
+                project_enter_id,
+            </if>
+            <if test="projectNo != null">
+                project_no,
+            </if>
+            <if test="projectTenderNo != null">
+                project_tender_no,
+            </if>
+            <if test="projectName != null">
+                project_name,
+            </if>
+            <if test="projectType != null">
+                project_type,
+            </if>
+            <if test="tenderShootDate != null">
+                tender_shoot_date,
+            </if>
+            <if test="tenderAmount != null">
+                tender_amount,
+            </if>
+            <if test="buildScale != null">
+                build_scale,
+            </if>
+            <if test="tenderBuildArea != null">
+                tender_build_area,
+            </if>
+            <if test="tenderEnterId != null">
+                tender_enter_id,
+            </if>
+            <if test="tenderMan != null">
+                tender_man,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="creater != null">
+                creater,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
+            </if>
+            <if test="updater != null">
+                updater,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="projectEnterId != null">
+                #{projectEnterId,jdbcType=INTEGER},
+            </if>
+            <if test="projectNo != null">
+                #{projectNo,jdbcType=VARCHAR},
+            </if>
+            <if test="projectTenderNo != null">
+                #{projectTenderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="projectName != null">
+                #{projectName,jdbcType=VARCHAR},
+            </if>
+            <if test="projectType != null">
+                #{projectType,jdbcType=VARCHAR},
+            </if>
+            <if test="tenderShootDate != null">
+                #{tenderShootDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="tenderAmount != null">
+                #{tenderAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="buildScale != null">
+                #{buildScale,jdbcType=VARCHAR},
+            </if>
+            <if test="tenderBuildArea != null">
+                #{tenderBuildArea,jdbcType=DECIMAL},
+            </if>
+            <if test="tenderEnterId != null">
+                #{tenderEnterId,jdbcType=INTEGER},
+            </if>
+            <if test="tenderMan != null">
+                #{tenderMan,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creater != null">
+                #{creater,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updater != null">
+                #{updater,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.huanxink.msys.managesys.model.ProTender">
+        update pro_tender
+        <set>
+            <if test="projectEnterId != null">
+                project_enter_id = #{projectEnterId,jdbcType=INTEGER},
+            </if>
+            <if test="projectNo != null">
+                project_no = #{projectNo,jdbcType=VARCHAR},
+            </if>
+            <if test="projectTenderNo != null">
+                project_tender_no = #{projectTenderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="projectName != null">
+                project_name = #{projectName,jdbcType=VARCHAR},
+            </if>
+            <if test="projectType != null">
+                project_type = #{projectType,jdbcType=VARCHAR},
+            </if>
+            <if test="tenderShootDate != null">
+                tender_shoot_date = #{tenderShootDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="tenderAmount != null">
+                tender_amount = #{tenderAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="buildScale != null">
+                build_scale = #{buildScale,jdbcType=VARCHAR},
+            </if>
+            <if test="tenderBuildArea != null">
+                tender_build_area = #{tenderBuildArea,jdbcType=DECIMAL},
+            </if>
+            <if test="tenderEnterId != null">
+                tender_enter_id = #{tenderEnterId,jdbcType=INTEGER},
+            </if>
+            <if test="tenderMan != null">
+                tender_man = #{tenderMan,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creater != null">
+                creater = #{creater,jdbcType=VARCHAR},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updater != null">
+                updater = #{updater,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.huanxink.msys.managesys.model.ProTender">
+    update pro_tender
+    set project_enter_id = #{projectEnterId,jdbcType=INTEGER},
+      project_no = #{projectNo,jdbcType=VARCHAR},
+      project_tender_no = #{projectTenderNo,jdbcType=VARCHAR},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      project_type = #{projectType,jdbcType=VARCHAR},
+      tender_shoot_date = #{tenderShootDate,jdbcType=TIMESTAMP},
+      tender_amount = #{tenderAmount,jdbcType=DECIMAL},
+      build_scale = #{buildScale,jdbcType=VARCHAR},
+      tender_build_area = #{tenderBuildArea,jdbcType=DECIMAL},
+      tender_enter_id = #{tenderEnterId,jdbcType=INTEGER},
+      tender_man = #{tenderMan,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=VARCHAR},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huanxink.msys.managesys.mapper.EnterpriseQualificationMapper">
+  <resultMap id="BaseResultMap" type="com.huanxink.msys.managesys.model.EnterpriseQualification">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="enterprise_id" jdbcType="VARCHAR" property="enterpriseId" />
+    <result column="qualification_name" jdbcType="VARCHAR" property="qualificationName" />
+    <result column="qualification_level" jdbcType="VARCHAR" property="qualificationLevel" />
+    <result column="qualification_no" jdbcType="VARCHAR" property="qualificationNo" />
+    <result column="issue_time" jdbcType="TIMESTAMP" property="issueTime" />
+    <result column="valid_time" jdbcType="TIMESTAMP" property="validTime" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="creater" jdbcType="VARCHAR" property="creater" />
+    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+    <result column="updater" jdbcType="TIMESTAMP" property="updater" />
+  </resultMap>
+  <resultMap id="BaseJoinResultMap" type="com.huanxink.msys.managesys.model.dto.EnterpriseQualificationDo" extends="BaseResultMap">
+    <result column="enterprise_name" jdbcType="VARCHAR" property="enterpriseName" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, enterprise_id, qualification_name, qualification_level, qualification_no, issue_time, valid_time,
+    created_time, creater, updated_time, updater
+  </sql>
+  <sql id="Base_Join_Column_List">
+    a.id, a.enterprise_id, a.qualification_name, a.qualification_level, a.qualification_no, a.issue_time,a.valid_time,
+    a.created_time, a.creater, a.updated_time, a.updater, b.enterprise_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from enterprise_qualification
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="seacherPageList" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from enterprise_qualification
+    where 1=1
+    <if test="id!=null">
+      and id = #{id,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="seacherJoinPageList" parameterType="java.util.Map" resultMap="BaseJoinResultMap">
+    select
+    <include refid="Base_Join_Column_List" />
+    from enterprise_qualification a left join  enterprise b on a.enterprise_id=b.id
+    where 1=1
+    <if test="id!=null">
+      and a.id = #{id,jdbcType=INTEGER}
+    </if>
+    <if test="companyName !=null and companyName !=''">
+      and b.enterprise_name like concat('%',#{companyName,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="qualificationType !=null and qualificationType !=''">
+      and a.qualification_name like concat('%',#{qualificationType, jdbcType=VARCHAR},'%')
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from enterprise_qualification
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.huanxink.msys.managesys.model.EnterpriseQualification">
+    insert into enterprise_qualification (id, enterprise_id, qualification_name, 
+      qualification_level, qualification_no, issue_time, valid_time,
+      created_time, creater, updated_time, 
+      updater)
+    values (#{id,jdbcType=INTEGER}, #{enterpriseId,jdbcType=VARCHAR}, #{qualificationName,jdbcType=VARCHAR}, 
+      #{qualificationLevel,jdbcType=VARCHAR}, #{qualificationNo,jdbcType=VARCHAR}, #{issueTime,jdbcType=TIMESTAMP}, #{validTime,jdbcType=TIMESTAMP}
+      #{createdTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP}, 
+      #{updater,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.huanxink.msys.managesys.model.EnterpriseQualification">
+    insert into enterprise_qualification
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="enterpriseId != null">
+        enterprise_id,
+      </if>
+      <if test="qualificationName != null">
+        qualification_name,
+      </if>
+      <if test="qualificationLevel != null">
+        qualification_level,
+      </if>
+      <if test="qualificationNo != null">
+        qualification_no,
+      </if>
+      <if test="issueTime != null">
+        issue_time,
+      </if>
+      <if test="validTime != null">
+        valid_time,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+      <if test="updater != null">
+        updater,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="enterpriseId != null">
+        #{enterpriseId,jdbcType=VARCHAR},
+      </if>
+      <if test="qualificationName != null">
+        #{qualificationName,jdbcType=VARCHAR},
+      </if>
+      <if test="qualificationLevel != null">
+        #{qualificationLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="qualificationNo != null">
+        #{qualificationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="issueTime != null">
+        #{issueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validTime != null">
+        #{validTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        #{updater,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huanxink.msys.managesys.model.EnterpriseQualification">
+    update enterprise_qualification
+    <set>
+      <if test="enterpriseId != null">
+        enterprise_id = #{enterpriseId,jdbcType=VARCHAR},
+      </if>
+      <if test="qualificationName != null">
+        qualification_name = #{qualificationName,jdbcType=VARCHAR},
+      </if>
+      <if test="qualificationLevel != null">
+        qualification_level = #{qualificationLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="qualificationNo != null">
+        qualification_no = #{qualificationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="issueTime != null">
+        issue_time = #{issueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="validTime != null">
+        valid_time = #{validTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        updater = #{updater,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huanxink.msys.managesys.model.EnterpriseQualification">
+    update enterprise_qualification
+    set enterprise_id = #{enterpriseId,jdbcType=VARCHAR},
+      qualification_name = #{qualificationName,jdbcType=VARCHAR},
+      qualification_level = #{qualificationLevel,jdbcType=VARCHAR},
+      qualification_no = #{qualificationNo,jdbcType=VARCHAR},
+      issue_time = #{issueTime,jdbcType=TIMESTAMP},
+      valid_time = #{validTime,jdbcType=TIMESTAMP},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=VARCHAR},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

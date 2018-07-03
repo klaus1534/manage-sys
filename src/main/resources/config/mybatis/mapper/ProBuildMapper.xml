@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huanxink.msys.managesys.mapper.ProBuildMapper">
+  <resultMap id="BaseResultMap" type="com.huanxink.msys.managesys.model.ProBuild">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="project_enter_id" jdbcType="INTEGER" property="projectEnterId" />
+    <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="project_no" jdbcType="VARCHAR" property="projectNo" />
+    <result column="project_build_no" jdbcType="VARCHAR" property="projectBuildNo" />
+    <result column="project_contract_amount" jdbcType="DECIMAL" property="projectContractAmount" />
+    <result column="project_contract_duration" jdbcType="DECIMAL" property="projectContractDuration" />
+    <result column="build_scale" jdbcType="VARCHAR" property="buildScale" />
+    <result column="build_area" jdbcType="DECIMAL" property="buildArea" />
+    <result column="build_enter_id" jdbcType="INTEGER" property="buildEnterId" />
+    <result column="build_man" jdbcType="VARCHAR" property="buildMan" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="creater" jdbcType="VARCHAR" property="creater" />
+    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+    <result column="updater" jdbcType="TIMESTAMP" property="updater" />
+  </resultMap>
+  <resultMap id="BaseJoinResultMap" type="com.huanxink.msys.managesys.model.dto.ProBuildDo" extends="BaseResultMap">
+    <result column="project_enter_name" jdbcType="VARCHAR" property="proEnterpriseName"/>
+    <result column="build_enter_name" jdbcType="VARCHAR" property="buildEnterpriseName"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, project_enter_id, project_name, project_no, project_build_no, project_contract_amount, project_contract_duration,
+    build_scale, build_area, build_enter_id, build_man, created_time, creater, updated_time, 
+    updater
+  </sql>
+  <sql id="Base_Join_Column_List">
+    a.id, a.project_enter_id, a.project_name, a.project_no, a.project_build_no, a.project_contract_amount, a.project_contract_duration,
+    a.build_scale, a.build_area, a.build_enter_id, a.build_man, a.created_time, a.creater, a.updated_time,
+    a.updater, b.enterprise_name as project_enter_name, c.enterprise_name as  build_enter_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from pro_build
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="seacherPageList" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from pro_build
+    where 1=1
+    <if test="id!=null">
+      and id = #{id,jdbcType=INTEGER}
+    </if>
+  </select>
+  <select id="seacherJoinPageList" parameterType="java.util.Map" resultMap="BaseJoinResultMap">
+    select
+    <include refid="Base_Join_Column_List" />
+    from pro_build a left join enterprise b on  a.project_enter_id = b.id
+    left join enterprise c on  a.build_enter_id = c.id
+    where 1=1
+    <if test="id!=null">
+      and a.id = #{id,jdbcType=INTEGER}
+    </if>
+    <if test="companyName !=null and companyName !=''">
+      and b.enterprise_name like concat('%',#{companyName,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="proName !=null and proName !=''">
+      and a.project_name like concat('%',#{proName,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="proAmtStart !=null and proAmtStart !=''">
+      and a.project_contract_amount &gt;= #{proAmtStart,jdbcType=VARCHAR}
+    </if>
+    <if test="proAmtEnd !=null and proAmtEnd !=''">
+      and a.project_contract_amount &lt;= #{proAmtEnd, jdbcType=VARCHAR}
+    </if>
+    <if test="proDurationStart !=null and proDurationStart !=''">
+      and a.project_contract_duration &gt;= #{proDurationStart, jdbcType=VARCHAR}
+    </if>
+    <if test="proDurationEnd !=null and proDurationEnd !=''">
+      and a.project_contract_duration &lt;= #{proDurationEnd, jdbcType=VARCHAR}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from pro_build
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.huanxink.msys.managesys.model.ProBuild">
+    insert into pro_build (id, project_enter_id, project_name, project_no,
+      project_build_no, project_contract_amount, 
+      project_contract_duration, build_scale, build_area, 
+      build_enter_id, build_man, created_time, 
+      creater, updated_time, updater
+      )
+    values (#{id,jdbcType=INTEGER}, #{projectEnterId,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, #{projectNo,jdbcType=VARCHAR},
+      #{projectBuildNo,jdbcType=VARCHAR}, #{projectContractAmount,jdbcType=DECIMAL}, 
+      #{projectContractDuration,jdbcType=DECIMAL}, #{buildScale,jdbcType=VARCHAR}, #{buildArea,jdbcType=DECIMAL}, 
+      #{buildEnterId,jdbcType=INTEGER}, #{buildMan,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{creater,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.huanxink.msys.managesys.model.ProBuild">
+    insert into pro_build
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="projectEnterId != null">
+        project_enter_id,
+      </if>
+      <if test="projectNo != null">
+        project_no,
+      </if>
+      <if test="projectName != null">
+        project_name,
+      </if>
+      <if test="projectBuildNo != null">
+        project_build_no,
+      </if>
+      <if test="projectContractAmount != null">
+        project_contract_amount,
+      </if>
+      <if test="projectContractDuration != null">
+        project_contract_duration,
+      </if>
+      <if test="buildScale != null">
+        build_scale,
+      </if>
+      <if test="buildArea != null">
+        build_area,
+      </if>
+      <if test="buildEnterId != null">
+        build_enter_id,
+      </if>
+      <if test="buildMan != null">
+        build_man,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+      <if test="updater != null">
+        updater,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="projectEnterId != null">
+        #{projectEnterId,jdbcType=INTEGER},
+      </if>
+      <if test="projectNo != null">
+        #{projectNo,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null">
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectBuildNo != null">
+        #{projectBuildNo,jdbcType=VARCHAR},
+      </if>
+      <if test="projectContractAmount != null">
+        #{projectContractAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="projectContractDuration != null">
+        #{projectContractDuration,jdbcType=DECIMAL},
+      </if>
+      <if test="buildScale != null">
+        #{buildScale,jdbcType=VARCHAR},
+      </if>
+      <if test="buildArea != null">
+        #{buildArea,jdbcType=DECIMAL},
+      </if>
+      <if test="buildEnterId != null">
+        #{buildEnterId,jdbcType=INTEGER},
+      </if>
+      <if test="buildMan != null">
+        #{buildMan,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        #{updater,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huanxink.msys.managesys.model.ProBuild">
+    update pro_build
+    <set>
+      <if test="projectEnterId != null">
+        project_enter_id = #{projectEnterId,jdbcType=INTEGER},
+      </if>
+      <if test="projectName != null">
+        project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectNo != null">
+        project_no = #{projectNo,jdbcType=VARCHAR},
+      </if>
+      <if test="projectBuildNo != null">
+        project_build_no = #{projectBuildNo,jdbcType=VARCHAR},
+      </if>
+      <if test="projectContractAmount != null">
+        project_contract_amount = #{projectContractAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="projectContractDuration != null">
+        project_contract_duration = #{projectContractDuration,jdbcType=DECIMAL},
+      </if>
+      <if test="buildScale != null">
+        build_scale = #{buildScale,jdbcType=VARCHAR},
+      </if>
+      <if test="buildArea != null">
+        build_area = #{buildArea,jdbcType=DECIMAL},
+      </if>
+      <if test="buildEnterId != null">
+        build_enter_id = #{buildEnterId,jdbcType=INTEGER},
+      </if>
+      <if test="buildMan != null">
+        build_man = #{buildMan,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        updater = #{updater,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huanxink.msys.managesys.model.ProBuild">
+    update pro_build
+    set project_enter_id = #{projectEnterId,jdbcType=INTEGER},
+      project_name = #{projectName,jdbcType=VARCHAR},
+      project_no = #{projectNo,jdbcType=VARCHAR},
+      project_build_no = #{projectBuildNo,jdbcType=VARCHAR},
+      project_contract_amount = #{projectContractAmount,jdbcType=DECIMAL},
+      project_contract_duration = #{projectContractDuration,jdbcType=DECIMAL},
+      build_scale = #{buildScale,jdbcType=VARCHAR},
+      build_area = #{buildArea,jdbcType=DECIMAL},
+      build_enter_id = #{buildEnterId,jdbcType=INTEGER},
+      build_man = #{buildMan,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=VARCHAR},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

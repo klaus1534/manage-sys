@@ -1,0 +1,14 @@
+初步模板：
+http://112.73.90.175/tuerkeji/
+username:tuerkeji
+passwd: tuerkeji123456
+
+以下是仿照
+
+模仿网址：
+http://hhb.cbi360.net/SearchCompanyTechList/
+
+数据来源：
+http://59.175.169.110/web/XmManage/XmxxSearch.aspx
+
+

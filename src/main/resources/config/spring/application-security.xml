@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <sec:global-method-security pre-post-annotations="disabled"/>
+
+    <sec:http use-expressions="true" auto-config="true" >
+        <sec:csrf disabled="true"/>
+        <sec:form-login default-target-url="/" login-page="/login" />
+        <sec:http-basic />
+        <sec:logout logout-success-url="/login" delete-cookies="true" />
+        <sec:intercept-url pattern="/login" access="permitAll" />
+        <sec:intercept-url pattern="/logout" access="permitAll" />
+        <sec:intercept-url pattern="/public/**" access="permitAll" />
+        <sec:intercept-url pattern="/static/**" access="permitAll" />
+        <sec:intercept-url pattern="/login" access="permitAll" />
+        <sec:intercept-url pattern="/favicon.ico" access="permitAll" />
+        <sec:intercept-url pattern="/enterprise/" access="hasRole('enterprise')" />
+        <sec:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />
+        <!--csrf token 仓库-->
+        <sec:headers>
+            <sec:frame-options policy="SAMEORIGIN"/>
+        </sec:headers>
+        <!--<sec:intercept-url pattern="/**" access="hasRole('ROLE_USER')" />-->
+        <!--<sec:access-denied-handler ref="accessDeniedHandler"/>-->
+
+
+        <sec:csrf token-repository-ref="csrfTokenRepository"/>
+        <sec:session-management session-authentication-error-url="/session/expired">
+            <!--
+                max-sessions 最大登入数量
+                error-if-maximum-exceeded 操作最大数量是否做session错误处理
+                    false 则后登入的踢出前一个登入额
+                expired-session-strategy-ref
+                expired-url session过期跳转URL
+            -->
+            <sec:concurrency-control max-sessions="1"
+                                     error-if-maximum-exceeded="false"
+                                     expired-url="/session/expired"
+                                     session-registry-ref="sessionRegistry"/>
+        </sec:session-management>
+        <sec:expression-handler ref="webExpressionHandler"/>
+    </sec:http>
+
+    <sec:authentication-manager>
+        <sec:authentication-provider ref="authenticationProvider"/>
+    </sec:authentication-manager>
+
+    <bean id="authenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <property name="hideUserNotFoundExceptions" value="false"/>
+        <property name="userDetailsService" ref="manageSysUserDetailsService"/>
+        <property name="passwordEncoder" ref="manageSysPasswordEncoder"/>
+        <!--<property name="saltSource" ref="manageSysSaltSource"/>-->
+    </bean>
+
+    <bean id="csrfTokenRepository" class="org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository"/>
+    <bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl"/>
+
+    <bean id="webExpressionHandler"
+          class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
+    <!--自定义用户详情服务实现-->
+    <bean id="manageSysUserDetailsService" class="com.huanxink.msys.managesys.config.ManageSysUserDetailServiceImpl"/>
+    <bean id="manageSysPasswordEncoder"
+          class="org.springframework.security.authentication.encoding.Md5PasswordEncoder"/>
+    <bean id="manageSysSaltSource" class="org.springframework.security.authentication.dao.ReflectionSaltSource">
+        <property name="userPropertyToUse" value="salt"/>
+    </bean>
+
+    <!--<sec:authentication-manager>
+        <sec:authentication-provider>
+            <sec:user-service>
+                <sec:user name="admin" password="123" authorities="ROLE_USER, ROLE_ADMIN,ROLE_FINANCE"/>
+            </sec:user-service>
+        </sec:authentication-provider>
+    </sec:authentication-manager>-->
+
+</beans>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huanxink.msys.managesys.mapper.EnterpriseEmployeeMapper">
+  <resultMap id="BaseResultMap" type="com.huanxink.msys.managesys.model.EnterpriseEmployee">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="enterprise_id" jdbcType="VARCHAR" property="enterpriseId" />
+    <result column="emp_name" jdbcType="VARCHAR" property="empName" />
+    <result column="emp_sex" jdbcType="VARCHAR" property="empSex" />
+    <result column="emp_idno" jdbcType="VARCHAR" property="empIdno" />
+    <result column="emp_type" jdbcType="VARCHAR" property="empType" />
+    <result column="emp_qulification_no" jdbcType="VARCHAR" property="empQulificationNo" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="creater" jdbcType="VARCHAR" property="creater" />
+    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+    <result column="updater" jdbcType="TIMESTAMP" property="updater" />
+  </resultMap>
+
+  <resultMap id="BaseJoinResultMap" type="com.huanxink.msys.managesys.model.dto.EnterpriseEmployeeDo" extends="BaseResultMap">
+    <result column="enterprise_name" jdbcType="VARCHAR" property="enterpriseName" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, enterprise_id, emp_name, emp_sex, emp_idno, emp_type, emp_qulification_no, created_time, 
+    creater, updated_time, updater
+  </sql>
+
+  <sql id="Base_Join_Column_List">
+    a.id, a.enterprise_id, a.emp_name, a.emp_sex, a.emp_idno, a.emp_type, a.emp_qulification_no, a.created_time,
+    a.creater, a.updated_time, a.updater, b.enterprise_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from enterprise_employee
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="seacherJoinPageList" parameterType="java.util.Map" resultMap="BaseJoinResultMap">
+    select
+    <include refid="Base_Join_Column_List" />
+    from enterprise_employee a left join enterprise b on  a.enterprise_id=b.id
+    where 1=1
+    <if test="id !=null">
+      and a.id = #{id,jdbcType=INTEGER}
+    </if>
+    <if test="companyName !=null and companyName !=''">
+      and b.enterprise_name like concat('%',#{companyName,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="employeeName !=null and employeeName !=''">
+      and a.emp_name like concat('%',#{employeeName,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="employeeType !=null and employeeType !=''">
+      and a.emp_type like concat('%',#{employeeType,jdbcType=VARCHAR},'%')
+    </if>
+  </select>
+  <select id="seacherPageList" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from enterprise_employee
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from enterprise_employee
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.huanxink.msys.managesys.model.EnterpriseEmployee">
+    insert into enterprise_employee (id, enterprise_id, emp_name, 
+      emp_sex, emp_idno, emp_type, 
+      emp_qulification_no, created_time, creater, 
+      updated_time, updater)
+    values (#{id,jdbcType=INTEGER}, #{enterpriseId,jdbcType=VARCHAR}, #{empName,jdbcType=VARCHAR}, 
+      #{empSex,jdbcType=VARCHAR}, #{empIdno,jdbcType=VARCHAR}, #{empType,jdbcType=VARCHAR}, 
+      #{empQulificationNo,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, 
+      #{updatedTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.huanxink.msys.managesys.model.EnterpriseEmployee">
+    insert into enterprise_employee
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="enterpriseId != null">
+        enterprise_id,
+      </if>
+      <if test="empName != null">
+        emp_name,
+      </if>
+      <if test="empSex != null">
+        emp_sex,
+      </if>
+      <if test="empIdno != null">
+        emp_idno,
+      </if>
+      <if test="empType != null">
+        emp_type,
+      </if>
+      <if test="empQulificationNo != null">
+        emp_qulification_no,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+      <if test="updater != null">
+        updater,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="enterpriseId != null">
+        #{enterpriseId,jdbcType=VARCHAR},
+      </if>
+      <if test="empName != null">
+        #{empName,jdbcType=VARCHAR},
+      </if>
+      <if test="empSex != null">
+        #{empSex,jdbcType=VARCHAR},
+      </if>
+      <if test="empIdno != null">
+        #{empIdno,jdbcType=VARCHAR},
+      </if>
+      <if test="empType != null">
+        #{empType,jdbcType=VARCHAR},
+      </if>
+      <if test="empQulificationNo != null">
+        #{empQulificationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        #{updater,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huanxink.msys.managesys.model.EnterpriseEmployee">
+    update enterprise_employee
+    <set>
+      <if test="enterpriseId != null">
+        enterprise_id = #{enterpriseId,jdbcType=VARCHAR},
+      </if>
+      <if test="empName != null">
+        emp_name = #{empName,jdbcType=VARCHAR},
+      </if>
+      <if test="empSex != null">
+        emp_sex = #{empSex,jdbcType=VARCHAR},
+      </if>
+      <if test="empIdno != null">
+        emp_idno = #{empIdno,jdbcType=VARCHAR},
+      </if>
+      <if test="empType != null">
+        emp_type = #{empType,jdbcType=VARCHAR},
+      </if>
+      <if test="empQulificationNo != null">
+        emp_qulification_no = #{empQulificationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        updater = #{updater,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huanxink.msys.managesys.model.EnterpriseEmployee">
+    update enterprise_employee
+    set enterprise_id = #{enterpriseId,jdbcType=VARCHAR},
+      emp_name = #{empName,jdbcType=VARCHAR},
+      emp_sex = #{empSex,jdbcType=VARCHAR},
+      emp_idno = #{empIdno,jdbcType=VARCHAR},
+      emp_type = #{empType,jdbcType=VARCHAR},
+      emp_qulification_no = #{empQulificationNo,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=VARCHAR},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      updater = #{updater,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
