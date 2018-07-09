@@ -6,6 +6,7 @@ import com.huanxink.msys.managesys.mapper.BasicMapper;
 import com.huanxink.msys.managesys.model.BasicEnity;
 import com.huanxink.msys.managesys.model.ManageSysUser;
 import com.huanxink.msys.managesys.service.BasicService;
+import com.huanxink.msys.managesys.service.EnterpriseQualificationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -61,6 +62,7 @@ public abstract class BasicServiceImpl<T extends BasicEnity, ID, DO extends T> i
     public void delete(ID id) {
         getBasicMapper().deleteByPrimaryKey(id);
     }
+
 
     @Override
     public PageInfo<T> secherPage(Map param, Integer pageno, Integer pageSize) {

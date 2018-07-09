@@ -18,4 +18,5 @@ public class EnterpriseQualification extends BasicEnity {
     private Date issueTime;
 
     private Date validTime;
+    
 }

@@ -159,6 +159,10 @@ body{
 	min-width:110px;
 	text-align:right;
 }
+.form-label-local{
+	width:80px;
+	text-align:right;
+}
 .form-inline .form-control{
 	min-width:200px;
 }

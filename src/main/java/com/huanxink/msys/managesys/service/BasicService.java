@@ -17,4 +17,5 @@ public interface BasicService<T, ID, DO extends T> {
     PageInfo<T> secherPage(Map param, Integer pageno, Integer pageSize);
 
     PageInfo<DO> secherJoinPage(Map param, Integer pageno, Integer pageSize);
+
 }

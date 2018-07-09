@@ -27,10 +27,28 @@
                     <input type="text" class="form-control text-left" id="qualificationType" name="qualificationType" value="${qualificationType}">
                 </div>
                 <div class="form-group">
+                    <label for="qLevel" class="col-sm-2 control-label">等级:</label>
+                    <div class="col-sm-9">
+                        <select class="selectpicker form-control show-tick" id="qLevel"
+                                name="qLevel"  >
+                            <option value="${qLevel}">${qLevel}</option>
+                            <c:forEach items="${qLevelList}" var="qLevel">
+                            <option value="${qLevel.qualificationLevel}">${qLevel.qualificationLevel}</option>
+                        </c:forEach>
+                        </select>
+                    </div>
+            </div>
+                <div class="form-group">
                     <button type="submit" class="btn btn-primary">查询</button>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
                         企业资质信息
                     </button>
+                  <%--<button type="button" id="toGuestListExcelId" class="btn btn-primary" action="exportDate?tableDate="+${pageInfo.getList()}" >
+                      导出到Excel </button>--%>
+                  <%--  <a href="javascript:void(0);" id="toGuestListExcelId" target="_blank" onclick="toGuestListExcel()" class="button button-primary button-small">导出到Excel</a>--%>
+                   <%-- <button type="button"   class="button button-primary button-small"></button>--%>
+                    <a href="exportData?companyName=${companyName}&qualificationType=${qualificationType}&qLevel=${qLevel}" id="toGuestListExcelId" target="_blank"  class="button button-primary button-small">导出到Excel</a>
+
                 </div>
             </div>
             <div class="row">
@@ -44,7 +62,7 @@
                 <tr>
                     <th>企业名称</th>
                     <th>证书编号</th>
-                    <th>资质名称</th>
+                    <th>资质类别</th>
                     <th>等级</th>
                     <th>发证日期</th>
                     <th>有效日期</th>
@@ -110,7 +128,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="qualificationName" class="col-sm-2 control-label">资质名称:</label>
+                        <label for="qualificationName" class="col-sm-2 control-label">资质类别:</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="qualificationName" name="qualificationName">
                         </div>
@@ -196,6 +214,16 @@
 
         }
     });
+    /* 导出到Excel */
+  /*  function toGuestListExcel(){
+       /!* var curpagenum = $('#contentGroupOrderTable').getGridParam('page');
+        $("#page").val(curpagenum);*!/
+        $("#toGuestListExcelId").attr("action","/pro/tender/export?pageInfo="+$("#pageInfo").val()
+            /!*+"&nativePlace="+$("#nativePlace").val()*!/);
+    }*/
+
+
+
 </script>
 </body>
 </html>

@@ -9,6 +9,7 @@
 <%@ page import="com.huanxink.msys.managesys.utils.DateHelper" %>
 <html>
 <head>
+    <link rel="stylesheet" href="${ctx}/static/css/base.css" >
     <title>合同备案</title>
     <%@include file="../../common/include.jsp" %>
 </head>
@@ -17,20 +18,43 @@
     <h1 class="page-header">合同备案</h1>
     <form name="searchForm" id="searchForm" role="form" method="get">
         <div class="form-inline">
-            <div class="row">
-                <div class="form-group">
-                    <label class="control-label text-right" for="companyName">企业名称:</label>
+            <div class="col-md-12" style="    padding-bottom: 10px;">
+                <div class="form-group col-md-4">
+                    <label class="form-label-local" for="companyName">企业名称:</label>
                     <input type="text" class="form-control text-left" id="companyName" name="companyName" value="${companyName}">
                 </div>
-                <div class="form-group">
-                    <label class="control-label text-right" for="proName">项目名称:</label>
+                <div class="form-group col-md-4">
+                    <label class="form-label-local" for="proName">项目名称:</label>
                     <input type="text" class="form-control text-left" id="proName" name="proName" value="${proName}">
                 </div>
+                <%----%>
+                <div class="form-group col-md-4">
+                    <label class="form-label-local" for="proNo">项目编号:</label>
+                    <input type="text" class="form-control text-left" id="proNo" name="proNo" value="${proNo}">
+                </div>
+
             </div>
-            <h2></h2>
-            <div class="row">
-                <div class="form-group">
-                    <label class="control-label text-right" for="contractSignDate">签订时间</label>
+            <div class="col-md-12" style="    padding-bottom: 10px;">
+                <div class="form-group col-md-4">
+                    <label class="form-label-local" for="proContractNo"> 合同备案号:</label>
+                    <input type="text" class="form-control text-left" id="proContractNo" name="proContractNo" value="${proContractNo}">
+                </div>
+                <%--<div class="form-group">
+                    <label class="form-label-local" for="contractAmount"> 合同金额:</label>
+                    <input type="text" class="form-control text-left" id="contractAmount" name="contractAmount" value="${contractAmount}">
+                </div>--%>
+                <div class="form-group col-md-8">
+                    <label class="form-label-local" for="contractAmount">合同金额:</label>
+                    <div class="input-group" id="contractAmount">
+                        <input type="number" class="form-control" id="contractAmountStart" name="contractAmountStart" value="${contractAmountStart}">
+                        <div class="input-group-addon">-</div>
+                        <input type="number" class="form-control" id="contractAmountEnd" name="contractAmountEnd" value="${contractAmountEnd}">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" style="">
+                <div class="form-group col-md-9">
+                    <label class="form-label-local" for="contractSignDate">签订时间:</label>
                     <div class="input-group" id="contractSignDate">
                         <div class="input-group date form_datetime">
                             <input type="text" class="form-control" name="contractSignDateStart" readonly value="${contractSignDateStart}">
@@ -45,7 +69,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group col-md-3">
                     <button type="submit" class="btn btn-primary">查询</button>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
                         添加合同备案
@@ -53,33 +77,34 @@
                 </div>
             </div>
         </div>
-        <h2></h2>
+    </form>
+       <div style="clear: both; "></div>
         <div class="table-responsive">
             <table class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                    <th>企业名称</th>
-                    <th>项目名称</th>
+                    <th style="width:90px">企业名称</th>
+                    <th style="width:100px">项目名称</th>
                     <th>项目编号</th>
                     <th>合同备案号</th>
                     <th>签订日期</th>
                     <th>建设规模</th>
                     <th>合同金额万元</th>
-                    <th>承包单位名称</th>
+                    <th style="width:150px">承包单位名称</th>
                     <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach items="${pageInfo.getList()}" var="content">
                     <tr>
-                        <td>${content.proEnterpriseName}</td>
-                        <td>${content.projectName}</td>
-                        <td>${content.projectNo}</td>
-                        <td>${content.projectContractNo}</td>
-                        <td>${DateHelper.convertDateIntoYYYYMMDDStr(content.contractSignTime)}</td>
-                        <td>${content.contractBuildScale}</td>
-                        <td>${content.contractBuildAmount}</td>
-                        <td>${content.tenderEnterpriseName}</td>
+                        <td style="width:90px">${content.proEnterpriseName}</td>
+                        <td style="width:100px">${content.projectName}</td>
+                        <td >${content.projectNo}</td>
+                        <td >${content.projectContractNo}</td>
+                        <td >${DateHelper.convertDateIntoYYYYMMDDStr(content.contractSignTime)}</td>
+                        <td >${content.contractBuildScale}</td>
+                        <td >${content.contractBuildAmount}</td>
+                        <td style="width:150px">${content.tenderEnterpriseName}</td>
                         <td>
                             <a role="button" data-toggle="modal" data-target="#createModal" data-whatever='${content.toJSONString()}'>
                                 <span class="glyphicon glyphicon-pencil"></span>
@@ -93,7 +118,7 @@
             </table>
             <%@include file="../../common/page.jsp" %>
         </div>
-    </form>
+
 </div>
 <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLable">
     <div class="modal-dialog" role="document">

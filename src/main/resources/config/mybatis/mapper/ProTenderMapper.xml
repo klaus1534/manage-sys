@@ -36,7 +36,7 @@
     a.id, a.project_enter_id, a.project_no, a.project_tender_no, a.project_name, a.project_type,
     a.tender_shoot_date, a.tender_amount, a.build_scale, a.tender_build_area, a.tender_enter_id,
     a.tender_man, a.created_time, a.creater, a.updated_time, a.updater, b.enterprise_name as project_enter_name,
-    c.enterprise_name as tender_enter_name
+    a.tender_company as tender_enter_name
   </sql>
 
     <sql id="Base_Query_Column_List">
@@ -63,7 +63,6 @@
         select
         <include refid="Base_Join_Column_List"/>
         from pro_tender a left join enterprise b on a.project_enter_id=b.id
-        left join enterprise c on a.tender_enter_id=c.id
         where 1=1
         <if test="id!=null">
             and a.id = #{id,jdbcType=INTEGER}
@@ -73,6 +72,12 @@
         </if>
         <if test="proName !=null and proName !=''">
             and a.project_name like concat('%',#{proName,jdbcType=VARCHAR},'%')
+        </if>
+        <if test="buildArea !=null and buildArea !=''">
+            and a.tender_build_area=#{buildArea,jdbcType=INTEGER}
+        </if>
+        <if test="tenderCompany !=null and tenderCompany !=''">
+            and a.tender_company like concat('%',#{tenderCompany,jdbcType=VARCHAR},'%')
         </if>
         <if test="tenderType !=null and tenderType !=''">
             and a.project_type like concat('%',#{tenderType,jdbcType=VARCHAR},'%')

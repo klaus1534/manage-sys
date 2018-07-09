@@ -9,9 +9,16 @@ import org.apache.poi.xssf.usermodel.*;
 import java.io.IOException;
 import java.io.OutputStream;
 
-
+/**
+ * 创建excel表
+ */
 @Slf4j
 public class ExportExcelUtil {
+    /**
+     * 创建excel表
+     * @param exportExcel
+     * @param out
+     */
     public static void exportExc(ExportExcel exportExcel, OutputStream out) {
         try {
             // 创建工作簿对象
@@ -109,7 +116,7 @@ public class ExportExcelUtil {
                 try {
                     workbook.write(out);
                 } catch (IOException e) {
-                    log.error("Excel写出到响应刘异常:", e);
+                    log.error("Excel写出到响应异常:", e);
                 }
             }
         } catch (Exception e) {

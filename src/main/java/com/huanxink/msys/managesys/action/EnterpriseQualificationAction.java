@@ -3,6 +3,7 @@ package com.huanxink.msys.managesys.action;
 import com.huanxink.msys.managesys.model.EnterpriseQualification;
 import com.huanxink.msys.managesys.model.dto.CommonActionFunctionDo;
 import com.huanxink.msys.managesys.service.EnterpriseQualificationService;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -46,6 +49,11 @@ public class EnterpriseQualificationAction extends BasicAction<EnterpriseQualifi
                            @RequestParam(value = PAGE_SIZE, defaultValue = DEFAULT_PAGE_SIZE) Integer pageSize,
                            ModelMap modelMap) {
         return super.extraEnterpriseList(param, pageno, pageSize, modelMap);
+    }
+
+    @GetMapping("join/exportData")
+    public void exportData(@RequestParam String companyName,String qualificationType,String qLevel, HttpServletResponse response) throws IOException {
+        super.exportData(companyName,qualificationType,qLevel,response);
     }
 
 }

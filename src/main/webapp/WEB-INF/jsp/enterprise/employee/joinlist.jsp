@@ -37,6 +37,7 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
                         添加人员信息
                     </button>
+                    <a href="exportData?companyName=${companyName}&employeeName=${employeeName}&employeeType=${employeeType}" id="toGuestListExcelId" target="_blank"  class="button button-primary button-small">导出到Excel</a>
                 </div>
             </div>
         </div>

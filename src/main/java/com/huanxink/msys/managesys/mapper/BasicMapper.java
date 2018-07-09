@@ -21,4 +21,5 @@ public interface BasicMapper<T, ID, DO extends T> {
     List<T> seacherPageList(Map param);
 
     List<DO> seacherJoinPageList(Map param);
+
 }

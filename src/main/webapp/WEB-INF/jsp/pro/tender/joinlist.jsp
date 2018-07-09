@@ -26,13 +26,26 @@
                     <label class="control-label text-right" for="proName">项目名称:</label>
                     <input type="text" class="form-control text-left" id="proName" name="proName" value="${proName}">
                 </div>
+                <div class="form-group">
+                    <label class="control-label text-right" for="buildArea">面积平方米:</label>
+                    <input type="text" class="form-control text-left" id="buildArea" name="buildArea" value="${buildArea}">
+                </div>
+
             </div>
             <h2></h2>
             <div class="row">
                 <div class="form-group">
+                    <label class="control-label text-right" for="tenderCompany">中标单位:</label>
+                    <input type="text" class="form-control text-left" id="tenderCompany" name="tenderCompany" value="${tenderCompany}">
+                </div>
+                <div class="form-group">
                     <label class="control-label text-right" for="tenderType">招标类型</label>
                     <input type="text" class="form-control" id="tenderType" name="tenderType" value="${tenderType}">
                 </div>
+
+            </div>
+            <h2></h2>
+            <div class="row">
                 <div class="form-group">
                     <label class="control-label text-right" for="tenderProAmt">项目金额</label>
                     <div class="input-group" id="tenderProAmt">
@@ -68,13 +81,13 @@
                 </div>
             </div>
         </div>
-        <h2></h2>
+        <div style="clear: both; "></div>
         <div class="table-responsive">
             <table class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                    <th>企业名称</th>
-                    <th>项目信息</th>
+                    <th style="width:90px">企业名称</th>
+                    <th style="width:100px">项目信息</th>
                     <th>项目编号</th>
                     <th>招投标编码</th>
                     <th>招标类型</th>
@@ -83,15 +96,15 @@
                     <th>建设规模</th>
                     <th>面积平方米</th>
                     <th>中标单位</th>
-                    <th>项目负责人</th>
+                    <th style="width:150px">项目负责人</th>
                     <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach items="${pageInfo.getList()}" var="content">
                     <tr>
-                        <td>${content.proEnterpriseName}</td>
-                        <td>${content.projectName}</td>
+                        <td style="width:90px">${content.proEnterpriseName}</td>
+                        <td style="width:100px">${content.projectName}</td>
                         <td>${content.projectNo}</td>
                         <td>${content.projectTenderNo}</td>
                         <td>${content.projectType}</td>
@@ -100,7 +113,7 @@
                         <td>${content.buildScale}</td>
                         <td>${content.tenderBuildArea}</td>
                         <td>${content.tenderEnterpriseName}</td>
-                        <td>${content.tenderMan}</td>
+                        <td style="width:150px">${content.tenderMan}</td>
                         <td>
                             <a role="button" data-toggle="modal" data-target="#createModal" data-whatever='${content.toJSONString()}'>
                                 <span class="glyphicon glyphicon-pencil"></span>

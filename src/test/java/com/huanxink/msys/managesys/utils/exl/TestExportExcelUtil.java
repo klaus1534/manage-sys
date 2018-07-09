@@ -28,7 +28,7 @@ public class TestExportExcelUtil {
                         new Object[]{"bob", 123}
                 ));
         ExportExcelUtil.exportExc(exportExcel,
-                new FileOutputStream(new File("E:\\noahwm\\cache\\test.xls")));
+                new FileOutputStream(new File("E:\\test.xls")));//\noahwm\cache
     }
 
     @Test

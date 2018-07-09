@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -46,5 +48,9 @@ public class EnterpriseEmployeeAction extends BasicAction<EnterpriseEmployee, In
                            @RequestParam(value = PAGE_SIZE, defaultValue = DEFAULT_PAGE_SIZE) Integer pageSize,
                            ModelMap modelMap) {
         return super.extraEnterpriseList(param, pageno, pageSize, modelMap);
+    }
+    @GetMapping("join/exportData")
+    public void exportData(@RequestParam String companyName,String employeeName,String employeeType, HttpServletResponse response) throws IOException {
+        this.enterpriseEmployeeService.exportData(companyName,employeeName,employeeType,response);
     }
 }

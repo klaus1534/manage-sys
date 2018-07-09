@@ -17,7 +17,9 @@
   <resultMap id="BaseJoinResultMap" type="com.huanxink.msys.managesys.model.dto.EnterpriseQualificationDo" extends="BaseResultMap">
     <result column="enterprise_name" jdbcType="VARCHAR" property="enterpriseName" />
   </resultMap>
-
+  <resultMap id="BaseLevelResultMap" type="com.huanxink.msys.managesys.model.EnterpriseQualification">
+    <result column="qualification_level" jdbcType="VARCHAR" property="qualificationLevel" />
+  </resultMap>
   <sql id="Base_Column_List">
     id, enterprise_id, qualification_name, qualification_level, qualification_no, issue_time, valid_time,
     created_time, creater, updated_time, updater
@@ -41,6 +43,9 @@
       and id = #{id,jdbcType=INTEGER}
     </if>
   </select>
+  <select id="secherLevelList" parameterType="java.util.Map" resultMap="BaseLevelResultMap">
+    select  distinct qualification_level from enterprise_qualification
+  </select>
   <select id="seacherJoinPageList" parameterType="java.util.Map" resultMap="BaseJoinResultMap">
     select
     <include refid="Base_Join_Column_List" />
@@ -54,6 +59,9 @@
     </if>
     <if test="qualificationType !=null and qualificationType !=''">
       and a.qualification_name like concat('%',#{qualificationType, jdbcType=VARCHAR},'%')
+    </if>
+    <if test="qLevel !=null and qLevel !=''">
+      and a.qualification_level like concat('%',#{qLevel, jdbcType=VARCHAR},'%')
     </if>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
