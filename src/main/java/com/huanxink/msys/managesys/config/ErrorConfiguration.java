@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 /**
  * 错误页面配置
  *
- * @author fujianjian
+ * @author klaus
  * @project manage-sys
  * @date 2018/6/7 13:00
  */

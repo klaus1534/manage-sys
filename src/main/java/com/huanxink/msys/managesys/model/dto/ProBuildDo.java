@@ -4,7 +4,7 @@ import com.huanxink.msys.managesys.model.ProBuild;
 import lombok.Data;
 
 /**
- * @author fujianjian
+ * @author klaus
  * @project manage-sys
  * @date 2018/6/10 15:32
  */

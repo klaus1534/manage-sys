@@ -14,7 +14,7 @@ import java.util.Properties;
 
 /**
  * 属性文件工厂
- * @author fujianjian
+ * @author klaus
  * @project manage-sys
  * @date 2018/6/5 9:45
  */

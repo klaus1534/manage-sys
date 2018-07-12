@@ -6,7 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.Set;
 
 /**
- * @author fujianjian
+ * @author klaus
  * @project manage-sys
  * @date 2018/6/7 21:43
  */

@@ -5,7 +5,7 @@ import lombok.Data;
 
 /**
  * 企业基础资料
- * @author fujianjian
+ * @author klaus
  * @project manage-sys
  * @date 2018/6/10 15:32
  */
