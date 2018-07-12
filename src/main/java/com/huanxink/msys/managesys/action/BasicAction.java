@@ -164,7 +164,7 @@ public abstract class BasicAction<T, ID> {
                     new String[]{
                             "企业名称",
                             "项目编号",
-                            "资质类别",
+                            "资质名称",
                             "等级",
                             "发证日期",
                             "有效日期"

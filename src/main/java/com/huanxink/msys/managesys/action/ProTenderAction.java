@@ -83,10 +83,10 @@ public class ProTenderAction extends BasicAction<ProTender, Integer> {
         return super.extraEnterpriseList(param, pageno, pageSize, modelMap);
     }
 
-    @GetMapping("export")
+    @GetMapping("/join/exportData")
     public void exportData(@RequestParam Map param, HttpServletResponse response) throws Exception {
         List<ProTenderDo> list = this.proTenderService
-                .queryPage(param, 0, Integer.MAX_VALUE)
+                .exportData(param, 0, Integer.MAX_VALUE)
                 .getList();
         if (list == null || list.size() == 0) {
             response.setCharacterEncoding("UTF-8");

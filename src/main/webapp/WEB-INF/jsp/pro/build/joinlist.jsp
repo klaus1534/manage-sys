@@ -52,6 +52,7 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
                         添加施工项目
                     </button>
+                    <a href="exportData?companyName=${companyName}&proName=${proName}&proAmtStart=${proAmtStart}&proAmtEnd=${proAmtEnd}&proDurationStart=${proDurationStart}&proDurationEnd=${proDurationEnd}" id="toGuestListExcelId" target="_blank"  class="button button-primary button-small">导出到Excel</a>
                 </div>
             </div>
         </div>

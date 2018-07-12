@@ -4,6 +4,7 @@ import com.huanxink.msys.managesys.model.ProContract;
 import lombok.Data;
 
 /**
+ * 企业基础资料
  * @author fujianjian
  * @project manage-sys
  * @date 2018/6/10 15:32

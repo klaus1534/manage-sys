@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -50,4 +52,10 @@ public class ProContractAction extends BasicAction<ProContract, Integer> {
                            ModelMap modelMap) {
         return super.extraEnterpriseList(param, pageno, pageSize, modelMap);
     }
+
+    @GetMapping("join/exportData")
+    public void exportData(@RequestParam String companyName,String proName,String proNo,String proContractNo,String contractAmountStart,String contractAmountEnd,String contractSignDateStart,String contractSignDateEnd, HttpServletResponse response) throws IOException {
+        this.proContractService.exportData(companyName,proName,proNo,proContractNo,contractAmountStart,contractAmountEnd,contractSignDateStart,contractSignDateEnd,response);
+    }
+
 }

@@ -74,6 +74,7 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
                         添加合同备案
                     </button>
+                    <a href="exportData?companyName=${companyName}&proName=${proName}&proNo=${proNo}&proContractNo=${proContractNo}&contractAmountStart=${contractAmountStart}&contractAmountEnd=${contractAmountEnd}&contractSignDateStart=${contractSignDateStart}&contractSignDateEnd=${contractSignDateEnd}" id="toGuestListExcelId" target="_blank"  class="button button-primary button-small">导出到Excel</a>
                 </div>
             </div>
         </div>

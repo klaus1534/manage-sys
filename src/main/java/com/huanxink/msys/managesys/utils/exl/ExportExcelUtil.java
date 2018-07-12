@@ -108,7 +108,14 @@ public class ExportExcelUtil {
                 if (colNum == 0) {
                     sheet.setColumnWidth(colNum, (columnWidth - 2) * 256);
                 } else {
-                    sheet.setColumnWidth(colNum, (columnWidth + 4) * 256);
+                    //sheet.setColumnWidth(colNum, (columnWidth + 4) * 256);
+
+                    int colWidth = sheet.getColumnWidth(colNum)*2;
+                    if(colWidth<255*256){
+                        sheet.setColumnWidth(colNum, colWidth < 3000 ? 3000 : colWidth);
+                    }else{
+                        sheet.setColumnWidth(colNum,6000 );
+                    }
                 }
             }
 
@@ -279,7 +286,13 @@ public class ExportExcelUtil {
 				if(colNum == 0){
 					sheet.setColumnWidth(colNum, (columnWidth-2) * 256);
 				}else{
-					sheet.setColumnWidth(colNum, (columnWidth+4) * 256);
+                    int colWidth = sheet.getColumnWidth(colNum)*2;
+                    if(colWidth<255*256){
+                        sheet.setColumnWidth(colNum, colWidth < 3000 ? 3000 : colWidth);
+                    }else{
+                        sheet.setColumnWidth(colNum,6000 );
+                    }
+				//	sheet.setColumnWidth(colNum, (columnWidth+4) * 256);
 				}
 			}
 			if(workbook !=null){

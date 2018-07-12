@@ -37,4 +37,11 @@ public class ProTenderServiceImpl extends BasicServiceImpl<ProTender, Integer, P
         List<ProTenderDo> list = proTenderMapper.queryPageList(param);
         return new PageInfo<ProTenderDo>(list);
     }
+    @Override
+    public PageInfo<ProTenderDo> exportData(Map param, Integer pageno, Integer pageSize){
+        PageHelper.startPage(pageno, pageSize);
+        List<ProTenderDo> list = proTenderMapper.seacherJoinPageList(param);
+        return new PageInfo<ProTenderDo>(list);
+    }
+
 }

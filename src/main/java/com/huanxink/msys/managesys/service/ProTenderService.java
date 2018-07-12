@@ -14,4 +14,7 @@ import java.util.Map;
 public interface ProTenderService extends BasicService<ProTender, Integer, ProTenderDo> {
 
     PageInfo<ProTenderDo> queryPage(Map param, Integer pageno, Integer pageSize);
+
+    PageInfo<ProTenderDo> exportData(Map param, Integer pageno, Integer pageSize);
+
 }

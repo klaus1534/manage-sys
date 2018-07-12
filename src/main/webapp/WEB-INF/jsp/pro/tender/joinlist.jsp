@@ -78,6 +78,7 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
                         添加招标信息
                     </button>
+                    <a href="exportData?companyName=${companyName}&proName=${proName}&buildArea=${buildArea}&tenderCompany=${tenderCompany}&tenderType=${tenderType}&tenderProAmtStart=${tenderProAmtStart}&tenderProAmtEnd=${tenderProAmtEnd}&tenderShootTimeStart=${tenderShootTimeStart}&tenderShootTimeEnd=${tenderShootTimeEnd}" id="toGuestListExcelId" target="_blank"  class="button button-primary button-small">导出到Excel</a>
                 </div>
             </div>
         </div>
