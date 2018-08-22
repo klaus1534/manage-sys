@@ -10,7 +10,48 @@
 <%--icon--%>
 <%--<link href="${ctx}/static/shenma.ico" rel="icon">--%>
 <%--end--%>
+<style>
+    .form-group{
+        font-size: 13px;
 
+    }
+    .form-group label{
+        font-weight: normal!important;
+        display: inline-block;
+        height:28px;
+        line-height: 28px;
+        padding: 0;
+    }
+    .form-group .form-control{
+        width: 180px!important;
+        height: 28px;
+        line-height: 28px;
+    }
+    .form-group .form-control.half{
+        width: 80px!important;
+    }
+    .form-group .line{
+        display: inline-block;
+        height: 28px;
+        line-height: 28px;
+        width:20px;
+        text-align: center;
+    }
+    .form-group .selectpicker.form-control{
+        width: 0px!important;
+    }
+    .form-group .btn{
+        height:28px;
+        line-height: 1;
+    }
+    .row{
+        padding:5px 15px;
+    }
+    .table{
+        margin-top: 20px;
+    }
+
+</style>
 <%--bootstrap--%>
 <link rel="stylesheet" href="${ctx}/static/plugin/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="${ctx}/static/plugin/bootstrap/css/bootstrap-datetimepicker.min.css">

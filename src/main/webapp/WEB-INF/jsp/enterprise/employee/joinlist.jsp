@@ -1,7 +1,7 @@
 <%--
   Created by IntelliJ IDEA.
   User: Alen
-  Date: 2016/12/12
+  Date: 2018/06/12
   Time: 17:05
   To change this template use File | Settings | File Templates.
 --%>
@@ -10,6 +10,17 @@
 <head>
     <title>企业人员信息</title>
     <%@include file="../../common/include.jsp" %>
+    <style>
+        .list{
+            table-layout: fixed;
+        }
+        .list tr td{
+            word-break: break-all;
+        }
+        #searchForm .form-group{
+            margin-right: 15px;
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid">
@@ -18,23 +29,21 @@
         <div class="form-inline">
             <div class="row">
                 <div class="form-group">
-                    <label class="control-label text-right" for="companyName">企业名称:</label>
+                    <label class="control-label text-right" for="companyName">企业名称：</label>
                     <input type="text" class="form-control text-left" id="companyName" name="companyName" value="${companyName}">
                 </div>
                 <div class="form-group">
-                    <label class="control-label text-right" for="employeeName">人员姓名:</label>
+                    <label class="control-label text-right" for="employeeName">人员姓名：</label>
                     <input type="text" class="form-control text-left" id="employeeName" name="employeeName" value="${employeeName}">
                 </div>
-            </div>
-            <h2></h2>
-            <div class="row">
+
                 <div class="form-group">
-                    <label class="control-label text-right" for="employeeType">人员类别:</label>
+                    <label class="control-label text-right" for="employeeType">人员类别：</label>
                     <input type="text" class="form-control text-left" id="employeeType" name="employeeType" value="${employeeType}">
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">查询</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
+                    <button type="submit" class="btn btn-primary btn-sm">查询</button>
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createModal">
                         添加人员信息
                     </button>
                     <a href="exportData?companyName=${companyName}&employeeName=${employeeName}&employeeType=${employeeType}" id="toGuestListExcelId" target="_blank"  class="button button-primary button-small">导出到Excel</a>
@@ -43,13 +52,13 @@
         </div>
         <h2></h2>
         <div class="table-responsive">
-            <table class="table table-bordered table-hover">
+            <table class="list table table-bordered table-hover">
                 <thead>
                 <tr>
-                    <th>企业名称</th>
-                    <th>姓名</th>
-                    <th>性别</th>
-                    <th>证件号码</th>
+                    <th >企业名称</th>
+                    <th >姓名</th>
+                    <th >性别</th>
+                    <th >证件号码</th>
                     <th>人员类别</th>
                     <th>证书编号</th>
                     <th>操作</th>

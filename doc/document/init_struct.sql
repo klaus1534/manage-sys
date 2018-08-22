@@ -191,7 +191,7 @@ CREATE TABLE if not exists `sys_users` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 INSERT  `sys_users`(`id`, `username`, `password`, `email`, `enabled`, `locked`, `last_pwd_update`) VALUES
- (1, 'admin', '202cb962ac59075b964b07152d234b70', 'nchufujianjian@sina.cn', 1, 0, '2018-06-07 17:29:03');
+ (1, 'admin', '202cb962ac59075b964b07152d234b70', 'kanghuanxin@163.com', 1, 0, '2018-06-07 17:29:03');
 
 # 角色表
 drop table if exists `sys_role`;

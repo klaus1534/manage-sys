@@ -1,7 +1,7 @@
 <%--
   Created by IntelliJ IDEA.
   User: Alen
-  Date: 2016/12/12
+  Date: 2018/06/12
   Time: 17:05
   To change this template use File | Settings | File Templates.
 --%>
@@ -22,8 +22,8 @@
                 <p>
                 <h3>欢迎 ${userDetails.username} 使用企业管理系统</h3></p>
                 <br/>
-                <p><h4>当前登入IP: ${pageContext.request.getHeader("X-Forwarded-For")==null ?
-                    pageContext.request.getRemoteAddr():pageContext.request.getHeader("X-Forwarded-For")}</h4></p>
+                <%--<p><h4>当前登入IP: ${pageContext.request.getHeader("X-Forwarded-For")==null ?--%>
+                    <%--pageContext.request.getRemoteAddr():pageContext.request.getHeader("X-Forwarded-For")}</h4></p>--%>
 
                 <p><h4>当前系统时间：${currentTime}</h4></p>
             </div>

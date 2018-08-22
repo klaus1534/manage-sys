@@ -1,7 +1,7 @@
 <%--
   Created by IntelliJ IDEA.
   User: Alen
-  Date: 2016/12/12
+  Date: 2018/06/12
   Time: 17:05
   To change this template use File | Settings | File Templates.
 --%>
@@ -11,6 +11,17 @@
 <head>
     <title>企业资质信息</title>
     <%@include file="../../common/include.jsp" %>
+    <style>
+        .list{
+            table-layout: fixed;
+        }
+        .list tr td{
+            word-break: break-all;
+        }
+        #searchForm .form-group{
+            margin-right: 15px;
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid">
@@ -19,15 +30,15 @@
         <div class="form-inline">
             <div class="row">
                 <div class="form-group">
-                    <label class="control-label text-right" for="companyName">企业名称:</label>
+                    <label class="control-label text-right" for="companyName">企业名称：</label>
                     <input type="text" class="form-control text-left" id="companyName" name="companyName" value="${companyName}">
                 </div>
                 <div class="form-group">
-                    <label class="control-label text-right" for="qualificationType">资质类别:</label>
+                    <label class="control-label text-right" for="qualificationType">资质名称：</label>
                     <input type="text" class="form-control text-left" id="qualificationType" name="qualificationType" value="${qualificationType}">
                 </div>
                 <div class="form-group">
-                    <label for="qLevel" class="col-sm-2 control-label">等级:</label>
+                    <label for="qLevel" class="col-sm-2 control-label">等级：</label>
                     <div class="col-sm-9">
                         <select class="selectpicker form-control show-tick" id="qLevel"
                                 name="qLevel"  >
@@ -39,8 +50,8 @@
                     </div>
             </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">查询</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
+                    <button type="submit" class="btn btn-primary btn-sm">查询</button>
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createModal">
                         企业资质信息
                     </button>
                   <%--<button type="button" id="toGuestListExcelId" class="btn btn-primary" action="exportDate?tableDate="+${pageInfo.getList()}" >
@@ -57,12 +68,12 @@
         </div>
         <h2></h2>
         <div class="table-responsive">
-            <table class="table table-bordered table-hover">
+            <table class="list table table-bordered table-hover">
                 <thead>
                 <tr>
                     <th>企业名称</th>
                     <th>证书编号</th>
-                    <th>资质类别</th>
+                    <th>资质名称</th>
                     <th>等级</th>
                     <th>发证日期</th>
                     <th>有效日期</th>
@@ -122,25 +133,25 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="qualificationNo" class="col-sm-2 control-label">证书边编号:</label>
+                        <label for="qualificationNo" class="col-sm-2 control-label">证书边编号：</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="qualificationNo" name="qualificationNo">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="qualificationName" class="col-sm-2 control-label">资质类别:</label>
+                        <label for="qualificationName" class="col-sm-2 control-label">资质名称：</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="qualificationName" name="qualificationName">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="qualificationLevel" class="col-sm-2 control-label">等级:</label>
+                        <label for="qualificationLevel" class="col-sm-2 control-label">等级：</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="qualificationLevel" name="qualificationLevel">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="issueTime" class="col-sm-2 control-label">发证日期:</label>
+                        <label for="issueTime" class="col-sm-2 control-label">发证日期：</label>
                         <div class="col-sm-10">
                             <div class="date form_datetime input-group">
                                 <input type="text" class="form-control" id="issueTime" name="issueTime" readonly>
@@ -150,7 +161,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="validTime" class="col-sm-2 control-label">有效日期:</label>
+                        <label for="validTime" class="col-sm-2 control-label">有效日期：</label>
                         <div class="col-sm-10">
                             <div class="date form_datetime input-group">
                                 <input type="text" class="form-control" id="validTime" name="validTime" readonly>

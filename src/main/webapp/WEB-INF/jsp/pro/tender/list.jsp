@@ -1,7 +1,7 @@
 <%--
   Created by IntelliJ IDEA.
   User: Alen
-  Date: 2016/12/12
+  Date: 2018/06/12
   Time: 17:05
   To change this template use File | Settings | File Templates.
 --%>
@@ -126,8 +126,8 @@
                     </div>
                     <h2></h2>
                     <div class="row">
-                        <button type="submit" class="btn btn-primary">查询</button>
-                        <button type="button" class="btn btn-primary" id="exportData">汇出</button>
+                        <button type="submit" class="btn btn-primary btn-sm">查询</button>
+                        <button type="button" class="btn btn-primary btn-sm" id="exportData">汇出</button>
                     </div>
                 </div>
             </div>

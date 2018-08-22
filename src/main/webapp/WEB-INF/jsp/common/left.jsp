@@ -41,7 +41,7 @@
             <ul>
                 <c:forEach items="${menu.subMenuList}" var="submenu">
                     <li>
-                        <a href="${submenu.menuPath}" target="mainFrame">${submenu.menuName}</a>
+                        <a href="${submenu.menuPath}?menuIn=true" target="mainFrame">${submenu.menuName}</a>
                     </li>
                 </c:forEach>
             </ul>

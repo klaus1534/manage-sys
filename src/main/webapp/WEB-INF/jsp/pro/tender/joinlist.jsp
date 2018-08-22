@@ -1,7 +1,7 @@
 <%--
   Created by IntelliJ IDEA.
   User: Alen
-  Date: 2016/12/12
+  Date: 2018/06/12
   Time: 17:05
   To change this template use File | Settings | File Templates.
 --%>
@@ -11,71 +11,82 @@
 <head>
     <title>项目招标信息</title>
     <%@include file="../../common/include.jsp" %>
+    <style>
+        .list{
+            table-layout: fixed;
+        }
+        .list tr td{
+            word-break: break-all;
+        }
+        #searchForm .form-group{
+            margin-right: 15px;
+            padding:0px;
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid">
     <h1 class="page-header">项目招标信息</h1>
     <form name="searchForm" id="searchForm" role="form" method="get">
         <div class="form-inline">
-            <div class="row">
-                <div class="form-group">
-                    <label class="control-label text-right" for="companyName">企业名称:</label>
+            <div class="row" >
+                <div class="form-group col-md-3">
+                    <label class="control-label text-right" for="companyName">企业名称：</label>
                     <input type="text" class="form-control text-left" id="companyName" name="companyName" value="${companyName}">
                 </div>
-                <div class="form-group">
-                    <label class="control-label text-right" for="proName">项目名称:</label>
+                <div class="form-group col-md-3">
+                    <label class="control-label text-right" for="proName">项目名称：</label>
                     <input type="text" class="form-control text-left" id="proName" name="proName" value="${proName}">
                 </div>
-                <div class="form-group">
-                    <label class="control-label text-right" for="buildArea">面积平方米:</label>
-                    <input type="text" class="form-control text-left" id="buildArea" name="buildArea" value="${buildArea}">
-                </div>
 
-            </div>
-            <h2></h2>
-            <div class="row">
-                <div class="form-group">
-                    <label class="control-label text-right" for="tenderCompany">中标单位:</label>
+                <div class="form-group col-md-3">
+                    <label class="control-label text-right" for="tenderCompany">中标单位：</label>
                     <input type="text" class="form-control text-left" id="tenderCompany" name="tenderCompany" value="${tenderCompany}">
                 </div>
-                <div class="form-group">
-                    <label class="control-label text-right" for="tenderType">招标类型</label>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-3">
+                    <label class="control-label text-right" for="tenderType">招标类型：</label>
                     <input type="text" class="form-control" id="tenderType" name="tenderType" value="${tenderType}">
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="control-label text-right" for="tenderShootTime">中标日期：</label>
+                    <div class="input-group" id="tenderShootTime">
+                        <div class="input-group date ">
+                            <input type="text" class="form-control form_datetime half" name="tenderShootTimeStart" readonly value="${tenderShootTimeStart}">
+                            <%--<span class="input-group-addon"><i class="glyphicon glyphicon-remove"></i></span>--%>
+                            <%--<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>--%>
+                        </div>
+                        <div class="line">-</div>
+                        <div class="input-group date">
+                            <input type="text" class="form-control form_datetime half" name="tenderShootTimeEnd" readonly value="${tenderShootTimeEnd}">
+                            <%--<span class="input-group-addon"><i class="glyphicon glyphicon-remove"></i></span>--%>
+                            <%--<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>--%>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-3">
+                    <label class="control-label text-right" for="tenderProAmt">项目金额：</label>
+                    <div class="input-group" id="tenderProAmt">
+                        <input type="number" class="form-control half" id="tenderProAmtStart" name="tenderProAmtStart" value="${tenderProAmtStart}">
+                        <div class="line" style="float: left;">-</div>
+                        <input type="number" class="form-control half" id="tenderProAmtEnd" name="tenderProAmtEnd" value="${tenderProAmtEnd}">
+                    </div>
                 </div>
 
             </div>
-            <h2></h2>
-            <div class="row">
-                <div class="form-group">
-                    <label class="control-label text-right" for="tenderProAmt">项目金额</label>
-                    <div class="input-group" id="tenderProAmt">
-                        <input type="number" class="form-control" id="tenderProAmtStart" name="tenderProAmtStart" value="${tenderProAmtStart}">
-                        <div class="input-group-addon">-</div>
-                        <input type="number" class="form-control" id="tenderProAmtEnd" name="tenderProAmtEnd" value="${tenderProAmtEnd}">
-                    </div>
+            <div class="form-group col-md-3">
+                <label class="control-label text-right" for="buildScale">建设规模：</label>
+                <div class="input-group" id="buildScale">
+                    <input type="number" class="form-control half" id="buildScaleStart" name="tenderProAmtStart" value="${buildScaleStart}">
+                    <div class="line" style="float: left;">-</div>
+                    <input type="number" class="form-control half" id="buildScaleEnd" name="tenderProAmtEnd" value="${buildScaleEnd}">
                 </div>
             </div>
-            <h2></h2>
-            <div class="row">
-                <div class="form-group">
-                    <label class="control-label text-right" for="tenderShootTime">中标日期</label>
-                    <div class="input-group" id="tenderShootTime">
-                        <div class="input-group date form_datetime">
-                            <input type="text" class="form-control" name="tenderShootTimeStart" readonly value="${tenderShootTimeStart}">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-remove"></i></span>
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                        </div>
-                        -
-                        <div class="input-group date form_datetime">
-                            <input type="text" class="form-control" name="tenderShootTimeEnd" readonly value="${tenderShootTimeEnd}">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-remove"></i></span>
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">查询</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
+
+                <div class="form-group col-md-3" >
+                    <button type="submit" class="btn btn-primary btn-sm">查询</button>
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createModal">
                         添加招标信息
                     </button>
                     <a href="exportData?companyName=${companyName}&proName=${proName}&buildArea=${buildArea}&tenderCompany=${tenderCompany}&tenderType=${tenderType}&tenderProAmtStart=${tenderProAmtStart}&tenderProAmtEnd=${tenderProAmtEnd}&tenderShootTimeStart=${tenderShootTimeStart}&tenderShootTimeEnd=${tenderShootTimeEnd}" id="toGuestListExcelId" target="_blank"  class="button button-primary button-small">导出到Excel</a>
@@ -84,7 +95,7 @@
         </div>
         <div style="clear: both; "></div>
         <div class="table-responsive">
-            <table class="table table-bordered table-hover">
+            <table class="list table table-bordered table-hover">
                 <thead>
                 <tr>
                     <th style="width:90px">企业名称</th>
@@ -96,8 +107,8 @@
                     <th>中标金额</th>
                     <th>建设规模</th>
                     <th>面积平方米</th>
+                    <th>项目负责人</th>
                     <th>中标单位</th>
-                    <th style="width:150px">项目负责人</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -185,10 +196,10 @@
                     <div class="form-group">
                         <label for="tenderShootDate" class="col-sm-2 control-label">中标日期:</label>
                         <div class="col-sm-10">
-                            <div class="input-group date form_datetime">
-                                <input type="text" class="form-control" id="tenderShootDate" name="tenderShootDate" readonly value="${tenderShootDate}">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-remove"></i></span>
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            <div class="input-group date">
+                                <input type="text" class="form-control form_datetime" id="tenderShootDate" name="tenderShootDate" readonly value="${tenderShootDate}">
+                                <%--<span class="input-group-addon"><i class="glyphicon glyphicon-remove"></i></span>--%>
+                                <%--<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>--%>
                             </div>
                         </div>
                     </div>

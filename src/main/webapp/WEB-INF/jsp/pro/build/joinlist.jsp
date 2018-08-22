@@ -1,15 +1,27 @@
 <%--
   Created by IntelliJ IDEA.
   User: Alen
-  Date: 2016/12/12
+  Date: 2018/06/12
   Time: 17:05
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>施工信息</title>
+    <title></title>
     <%@include file="../../common/include.jsp" %>
+    <style>
+        .list{
+            table-layout: fixed;
+        }
+        .list tr td{
+            word-break: break-all;
+        }
+        #searchForm .form-group{
+            margin-right: 15px;
+            padding:0px;
+        }
+    </style>
 </head>
 <body>
 <div class="container-fluid">
@@ -18,38 +30,42 @@
         <div class="form-inline">
             <div class="row">
                 <div class="form-group">
-                    <label class="control-label text-right" for="companyName">企业名称:</label>
+                    <label class="control-label text-right" for="companyName">企业名称：</label>
                     <input type="text" class="form-control text-left" id="companyName" name="companyName" value="${companyName}">
                 </div>
                 <div class="form-group">
-                    <label class="control-label text-right" for="proName">项目名称:</label>
+                    <label class="control-label text-right" for="proName">项目名称：</label>
                     <input type="text" class="form-control text-left" id="proName" name="proName" value="${proName}">
                 </div>
+                <div class="form-group ">
+                    <label class="control-label text-right" for="buildScale">建设规模：</label>
+                    <div class="input-group" id="buildScale">
+                        <input type="number" class="form-control half" id="buildScaleStart" name="tenderProAmtStart" value="${buildScaleStart}">
+                        <div class="line" style="float: left;">-</div>
+                        <input type="number" class="form-control half" id="buildScaleEnd" name="tenderProAmtEnd" value="${buildScaleEnd}">
+                    </div>
+                </div>
             </div>
-            <h2></h2>
             <div class="row">
                 <div class="form-group">
-                    <label class="control-label text-right" for="proAmount">项目金额</label>
+                    <label class="control-label text-right" for="proAmount">项目金额：</label>
                     <div class="input-group" id="proAmount">
-                        <input type="text" class="form-control" id="proAmtStart" name="proAmtStart" value="${proAmtStart}">
-                        <div class="input-group-addon">-</div>
-                        <input type="text" class="form-control" id="proAmtEnd" name="proAmtEnd" value="${proAmtEnd}">
+                        <input type="text" class="form-control half" id="proAmtStart" name="proAmtStart" value="${proAmtStart}">
+                        <div class="line" style="float: left;">-</div>
+                        <input type="text" class="form-control half" id="proAmtEnd" name="proAmtEnd" value="${proAmtEnd}">
                     </div>
                 </div>
-            </div>
-            <h2></h2>
-            <div class="row">
                 <div class="form-group">
-                    <label class="control-label text-right" for="proDuration">项目工期</label>
+                    <label class="control-label text-right" for="proDuration">项目工期：</label>
                     <div class="input-group" id="proDuration">
-                        <input type="text" class="form-control" id="proDurationStart" name="proDurationStart" value="${proDurationStart}">
-                        <div class="input-group-addon">-</div>
-                        <input type="text" class="form-control" id="proDurationEnd" name="proDurationEnd" value="${proDurationEnd}">
+                        <input type="text" class="form-control half" id="proDurationStart" name="proDurationStart" value="${proDurationStart}">
+                        <div class="line" style="float: left;">-</div>
+                        <input type="text" class="form-control half" id="proDurationEnd" name="proDurationEnd" value="${proDurationEnd}">
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">查询</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal">
+                    <button type="submit" class="btn btn-primary btn-sm">查询</button>
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#createModal">
                         添加施工项目
                     </button>
                     <a href="exportData?companyName=${companyName}&proName=${proName}&proAmtStart=${proAmtStart}&proAmtEnd=${proAmtEnd}&proDurationStart=${proDurationStart}&proDurationEnd=${proDurationEnd}" id="toGuestListExcelId" target="_blank"  class="button button-primary button-small">导出到Excel</a>
@@ -58,13 +74,13 @@
         </div>
         <h2></h2>
         <div class="table-responsive">
-            <table class="table table-bordered table-hover">
+            <table class="list table table-bordered table-hover">
                 <thead>
                 <tr>
                     <th>企业名称</th>
                     <th>项目名称</th>
                     <th>项目编号</th>
-                    <th>施工许可编号</th>
+                    <th>合同编号</th>
                     <th>合同金额</th>
                     <th>合同工期</th>
                     <th>建设规模</th>
@@ -113,9 +129,7 @@
                     </button>
                     <h4 class="modal-title" id="createModalLable"></h4>
                 </div>
-                <%--modal dialog header end--%>
 
-                <%--modal dialog body start>--%>
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="projectEnterId" class="col-sm-2 control-label">企业名称:</label>
@@ -161,9 +175,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="buildScale" class="col-sm-2 control-label">建设规模:</label>
+                        <label for="realbuildScale" class="col-sm-2 control-label">建设规模:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="buildScale" name="buildScale">
+                            <input type="text" class="form-control" id="realbuildScale" name="realbuildScale">
                         </div>
                     </div>
                     <div class="form-group">

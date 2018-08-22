@@ -164,7 +164,7 @@ body{
 	text-align:right;
 }
 .form-inline .form-control{
-	min-width:200px;
+	/*min-width:200px;*/
 }
 .form-inline .form_date.control-label{
 	width:160px;

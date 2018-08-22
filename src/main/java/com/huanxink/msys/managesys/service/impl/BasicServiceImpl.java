@@ -11,9 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author klaus
@@ -68,7 +66,13 @@ public abstract class BasicServiceImpl<T extends BasicEnity, ID, DO extends T> i
     public PageInfo<T> secherPage(Map param, Integer pageno, Integer pageSize) {
         BasicMapper concreteMapper = this.getBasicMapper();
         PageHelper.startPage(pageno, pageSize);
-        List<T> list = concreteMapper.seacherPageList(param);
+
+        List<T> list = null;
+        if (Objects.equals(param.get("menuIn"), "true")) {
+            list = new ArrayList<>();
+        }else {
+            list = concreteMapper.seacherPageList(param);
+        }
         return new PageInfo<T>(list);
     }
 

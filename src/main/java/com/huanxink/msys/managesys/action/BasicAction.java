@@ -28,10 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -76,9 +73,13 @@ public abstract class BasicAction<T, ID> {
                        @RequestParam(value = PAGE_SIZE, defaultValue = DEFAULT_PAGE_SIZE) Integer pageSize,
                        ModelMap modelMap) {
         log.info("request list page param: {}", param.toString());
+
         modelMap.putAll(param);
         CommonActionFunctionDo concreteData = getConcreteFunction();
         PageInfo pageInfo = concreteData.getConreteService().secherPage(param, pageno, pageSize);
+        if (Objects.equals(param.get("menuIn"), "true")) {
+            pageInfo = new PageInfo();
+        }
         modelMap.put("pageInfo", pageInfo);
         String pagePath = concreteData.getConretePath() + "list";
         log.info("response list page path: {}", pagePath);
@@ -148,12 +149,12 @@ public abstract class BasicAction<T, ID> {
     protected void exportData(String companyName, String qualificationType, String qLevel, HttpServletResponse response) throws IOException {
         log.info("export data to excel:begin");
         CommonActionFunctionDo concreteFunction = getConcreteFunction();
-        Map param = new HashMap<String,String>();
-        param.put("companyName",companyName);
-        param.put("qualificationType",qualificationType);
-        param.put("qLevel",qLevel);
+        Map param = new HashMap<String, String>();
+        param.put("companyName", companyName);
+        param.put("qualificationType", qualificationType);
+        param.put("qLevel", qLevel);
         PageInfo pageInfo = concreteFunction.getConreteService().secherJoinPage(param, 0, 0);
-       List<EnterpriseQualificationDo> enterpriseQFDoList= pageInfo.getList();
+        List<EnterpriseQualificationDo> enterpriseQFDoList = pageInfo.getList();
         if (enterpriseQFDoList == null || enterpriseQFDoList.size() == 0) {
             response.setCharacterEncoding("UTF-8");
             PrintWriter printWriter = response.getWriter();
@@ -180,9 +181,9 @@ public abstract class BasicAction<T, ID> {
 
     }
 
-   private Object[] convertArray(EnterpriseQualificationDo enterpriseQFDo) {
+    private Object[] convertArray(EnterpriseQualificationDo enterpriseQFDo) {
         Object[] obj = new Object[10];
-        obj[0] =enterpriseQFDo.getEnterpriseName();
+        obj[0] = enterpriseQFDo.getEnterpriseName();
         obj[1] = enterpriseQFDo.getQualificationNo();
         obj[2] = enterpriseQFDo.getQualificationName();
         obj[3] = enterpriseQFDo.getQualificationLevel();
